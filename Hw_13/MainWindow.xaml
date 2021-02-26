@@ -1,0 +1,82 @@
+﻿<Window x:Class="Hw_13.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hw_13"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" 
+        Height="450" 
+        Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="347*"/>
+            <ColumnDefinition Width="223*"/>
+            <ColumnDefinition Width="222*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Список с клиентами -->
+        <TextBlock Margin="3 0 0 0" Text="Клиенты :"/>
+        <Border Margin="0 22 0 0" BorderBrush="Black" BorderThickness="0" Grid.Column="0" Grid.RowSpan="2">
+            <ListView Name="listClients"
+                      ItemsSource="{Binding}"
+                      SelectionChanged="listClients_SelectionChanged"
+                      >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Index" Width="0" DisplayMemberBinding="{Binding Index}" />
+                        <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Тип клиента" DisplayMemberBinding="{Binding Type}" />
+                        <GridViewColumn Header="Кредитная история" DisplayMemberBinding="{Binding CreditType}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
+
+        <!-- Кнопки -->
+        <TextBlock Text="Управление :" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"/>
+        <Border Margin="0 22 0 0" BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">
+            <StackPanel Margin="3" >
+                <Button Name="btnAutoFill" Content="Заполнить автоматически" Click="btnAutoFill_Click" />
+                <Button Name="btnOpen" Content="Открыть новый вклад" Click="btnOpen_Click" />
+                <Button Name="btnTransfer" Content="Перевод на другой счет" Click="btnTransfer_Click" />
+                <Button Name="btnLoan" Content="Выдать кредит" Click="btnLoan_Click" />
+            </StackPanel>
+        </Border>
+
+        <!-- Список с вкладами -->
+        <StackPanel Grid.Column="1" Grid.Row="1" >
+            <TextBlock Text="Счета :" />
+
+            <ListView Name="listAccounts" ItemsSource="{Binding}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Index" Width="0" DisplayMemberBinding="{Binding Index}" />
+                        <GridViewColumn Header="Тип депозита" DisplayMemberBinding="{Binding TypeOfDeposit}" />
+                        <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+
+        <!-- Список с кредитами -->
+        <StackPanel Grid.Column="2" Grid.Row="2" >
+            <TextBlock Text="Кредиты :" />
+
+            <ListView Name="listAccountsCredit" ItemsSource="{Binding}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Index" Width="0" DisplayMemberBinding="{Binding Index}" />
+                        <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding TypeOfDeposit}" />
+                        <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+    </Grid>
+</Window>

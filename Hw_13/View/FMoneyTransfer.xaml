@@ -1,0 +1,56 @@
+﻿<Window x:Class="Hw_13.FMoneyTransfer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hw_13"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="Переводы" Height="300" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="215*"/>
+            <ColumnDefinition Width="262*"/>
+            <ColumnDefinition Width="315*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Мои счета при загрузке формы -->
+        <TextBlock Margin="3 0 0 0" Text="Ваши счета :" />
+        <Border Margin="0 15 0 0" BorderBrush="Black" BorderThickness="1">
+            <ListView Name="listAccounts" ItemsSource="{Binding}" SelectionChanged="listAccounts_SelectionChanged">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Index" Width="0" DisplayMemberBinding="{Binding Index}" />
+                        <GridViewColumn Header="Тип депозита" DisplayMemberBinding="{Binding TypeOfDeposit}" />
+                        <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
+
+        <!-- Управление -->
+        <TextBlock Margin="3 0 0 0" Text="Управление :" Grid.Column="1" />
+        <Border Margin="0 15 0 0" BorderBrush="Black" BorderThickness="1" Grid.Column="1">
+            <StackPanel Margin="3">
+                <TextBlock Text="Сумма для перевода :" />
+                <TextBox Margin="3" Name="txtAmount" />
+                <Button Margin="3" Name="btnTransfer" Content="Перевести" Click="btnTransfer_Click" />
+                <Button Margin="3" Name="btnCancel" Content="Отмена" Click="btnCancel_Click" />
+            </StackPanel>
+        </Border>
+        
+        <!-- Клиенты -->
+        <TextBlock Margin="3 0 0 0" Text="Кому переводим :" Grid.Column="2" />
+        <Border Margin="0 15 0 0" BorderBrush="Black" BorderThickness="1" Grid.Column="2">
+            <ListView Name="listClients" ItemsSource="{Binding}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Index" Width="0" DisplayMemberBinding="{Binding Index}" />
+                        <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding Type}" />
+                        <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
+    </Grid>
+</Window>
