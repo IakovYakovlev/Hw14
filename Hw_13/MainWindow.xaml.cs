@@ -64,6 +64,9 @@ namespace Hw_13
 
             /// Ok! =   Дополнительно: клиентам с хорошей кредитной историей предлагать пониженую ставку по кредиту и 
             ///         повышенную ставку по вкладам
+            // Добавить механизмы оповещений используя делегаты и события
+            // Реализовать журнал действий, который будет хранить записи всех транзакций по 
+            // счетам / вкладам / кредитам     
             #endregion
             InitializeComponent();
         }
@@ -235,6 +238,11 @@ namespace Hw_13
             // Заполняем список с кредитами.
             this.listAccountsCredit.ItemsSource = Fill.account.Where(x => x.СlientsIndex == client.Index
                                                                 && x.TypeOfDeposit == DepositType.Credit);
+        }
+
+        private void listActions_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -8,16 +8,17 @@
         WindowStartupLocation="CenterScreen"
         Title="MainWindow" 
         Height="450" 
-        Width="800">
+        Width="1200">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="347*"/>
-            <ColumnDefinition Width="223*"/>
-            <ColumnDefinition Width="222*"/>
+            <ColumnDefinition Width="300*"/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="300*"/>
         </Grid.ColumnDefinitions>
 
         <!-- Список с клиентами -->
@@ -50,7 +51,7 @@
         </Border>
 
         <!-- Список с вкладами -->
-        <StackPanel Grid.Column="1" Grid.Row="1" >
+        <StackPanel Grid.Column="1" Grid.Row="1">
             <TextBlock Text="Счета :" />
 
             <ListView Name="listAccounts" ItemsSource="{Binding}">
@@ -65,7 +66,7 @@
         </StackPanel>
 
         <!-- Список с кредитами -->
-        <StackPanel Grid.Column="2" Grid.Row="2" >
+        <StackPanel Grid.Column="2" Grid.Row="1" >
             <TextBlock Text="Кредиты :" />
 
             <ListView Name="listAccountsCredit" ItemsSource="{Binding}">
@@ -73,6 +74,22 @@
                     <GridView>
                         <GridViewColumn Header="Index" Width="0" DisplayMemberBinding="{Binding Index}" />
                         <GridViewColumn Header="Тип" DisplayMemberBinding="{Binding TypeOfDeposit}" />
+                        <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+        
+        <!-- Журнал действий -->
+        <StackPanel Grid.Column="3" Grid.RowSpan="2" Loaded="StackPanel_Loaded">
+            <TextBlock Text="Журнал действий :" />
+
+            <ListView Name="listActions" ItemsSource="{Binding}" Loaded="listActions_Loaded">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Date}" />
+                        <GridViewColumn Header="Имя клиента" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Действие" DisplayMemberBinding="{Binding Actions}" />
                         <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}" />
                     </GridView>
                 </ListView.View>
