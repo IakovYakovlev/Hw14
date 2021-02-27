@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\ActionsModel.cs" />
     <Compile Include="Model\CreditHistoryType.cs" />
     <Compile Include="Model\DepositType.cs" />
     <Compile Include="ViewModel\Fill.cs" />
