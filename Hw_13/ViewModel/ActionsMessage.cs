@@ -59,7 +59,7 @@ namespace Hw_13
         /// <param name="amount">Сумма.</param>
         public void ClientsActions(string name, string action, string amount)
         {
-            MessageBox.Show($"Клиент : {name}, {action}, сумма :{amount}");
+            MessageBox.Show($"Клиент : {name}, {action}, сумма : {amount}");
         }
     }
 }
