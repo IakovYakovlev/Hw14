@@ -8,14 +8,14 @@ namespace Hw_13
     {
 
         // Создаем статический список для ListView "Журнал действий".
-        public static ObservableCollection<ActionsModel> ActionList;
+        public static ObservableCollection<ActionsModel> actionList;
 
         /// <summary>
         /// Инициализируем объекты.
         /// </summary>
         static ActionsMessage()
         {
-            ActionList = new ObservableCollection<ActionsModel>();
+            actionList = new ObservableCollection<ActionsModel>();
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Hw_13
         public void Message(string name, string action, double amount)
         {
             // Добавляем новую запись в журнал.
-            ActionList.Add(new ActionsModel(name, action, amount));
+            actionList.Add(new ActionsModel(name, action, amount));
 
             post?.Invoke(name, action, amount.ToString());
         }

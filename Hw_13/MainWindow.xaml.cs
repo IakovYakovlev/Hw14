@@ -23,6 +23,9 @@ namespace Hw_13
         // Создаем клиента.
         Clients client;
 
+        // Создаем список активностей.
+        ActionsMessage actionMessage = new ActionsMessage();
+
         public MainWindow()
         {
             #region Задание.
@@ -69,6 +72,8 @@ namespace Hw_13
             // счетам / вкладам / кредитам     
             #endregion
             InitializeComponent();
+
+            this.listActions.ItemsSource = ActionsMessage.actionList;
         }
 
         /// <summary>
@@ -140,6 +145,7 @@ namespace Hw_13
             if(newDeposit.ShowDialog() == true)
             {
                 Fill.account.Add(new Accounts(client.Index, newDeposit.amount, newDeposit.type));
+                actionMessage.Message(client.Name, "Открыл новый вчет", newDeposit.amount);
             }
 
             // Обновляем список с вкладами.
@@ -178,9 +184,12 @@ namespace Hw_13
                     if (acc.Index == mt.accountIndex)
                     {
                         acc.Amount = Math.Round(acc.Amount - mt.amount,2);
+                        
+                        actionMessage.Message(client.Name, "Отправил деньги", mt.amount);
 
                         if (acc.Amount == 0) 
                         {
+                            
                             Fill.account.Remove(acc);
                             break;
                         }
@@ -195,6 +204,14 @@ namespace Hw_13
                     if(acc.СlientsIndex == mt.clientIndex && acc.TypeOfDeposit != DepositType.Credit)
                     {
                         acc.Amount = Math.Round(acc.Amount += mt.amount, 2);
+
+                        foreach (var client in Fill.client)
+                            if (acc.СlientsIndex == client.Index)
+                            {
+                                actionMessage.Message(client.Name, "Получил деньги", mt.amount);
+                                break;
+                            }
+
                         break;
                     }
                 }
@@ -233,6 +250,7 @@ namespace Hw_13
             if (loan.ShowDialog() == true)
             {
                 Fill.account.Add(new Accounts(client.Index, loan.credit, DepositType.Credit));
+                actionMessage.Message(client.Name, "Взял кредит", loan.credit);
             }
 
             // Заполняем список с кредитами.
@@ -240,9 +258,16 @@ namespace Hw_13
                                                                 && x.TypeOfDeposit == DepositType.Credit);
         }
 
+        /// <summary>
+        /// Метод для подписки при загрузке формы.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listActions_Loaded(object sender, RoutedEventArgs e)
         {
-
+            // Подписываем на обновления.
+            ActionsMessage actionMessageList = new ActionsMessage();
+            actionMessage.Post += actionMessageList.ClientsActions;
         }
     }
 }

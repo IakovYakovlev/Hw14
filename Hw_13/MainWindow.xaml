@@ -81,7 +81,7 @@
         </StackPanel>
         
         <!-- Журнал действий -->
-        <StackPanel Grid.Column="3" Grid.RowSpan="2" Loaded="StackPanel_Loaded">
+        <StackPanel Grid.Column="3" Grid.RowSpan="2">
             <TextBlock Text="Журнал действий :" />
 
             <ListView Name="listActions" ItemsSource="{Binding}" Loaded="listActions_Loaded">
