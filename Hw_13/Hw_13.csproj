@@ -58,6 +58,7 @@
     <Compile Include="Model\ActionsModel.cs" />
     <Compile Include="Model\CreditHistoryType.cs" />
     <Compile Include="Model\DepositType.cs" />
+    <Compile Include="ViewModel\ActionsMessage.cs" />
     <Compile Include="ViewModel\Fill.cs" />
     <Compile Include="View\FMoneyTransfer.xaml.cs">
       <DependentUpon>FMoneyTransfer.xaml</DependentUpon>
