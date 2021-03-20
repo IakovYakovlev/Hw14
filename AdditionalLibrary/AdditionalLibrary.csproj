@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,7 +72,7 @@
     <Compile Include="ViewModel\Button\ButtonAdapter.cs" />
     <Compile Include="ViewModel\Button\Fill.cs" />
     <Compile Include="ViewModel\Button\Loan.cs" />
-    <Compile Include="ViewModel\Button\MonyeTransfer.cs" />
+    <Compile Include="ViewModel\Button\MoneyTransfer.cs" />
     <Compile Include="ViewModel\Button\NewDeposit.cs" />
     <Compile Include="ViewModel\IButtonListener.cs" />
     <Compile Include="View\FLoan.xaml.cs">

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdditionalLibrary
 {
-    class MonyeTransfer
+    class MoneyTransfer
     {
     }
 }
