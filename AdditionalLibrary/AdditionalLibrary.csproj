@@ -68,7 +68,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ViewModel\ActionsMessage.cs" />
-    <Compile Include="ViewModel\Fill.cs" />
+    <Compile Include="ViewModel\Button\ButtonAdapter.cs" />
+    <Compile Include="ViewModel\Button\Fill.cs" />
+    <Compile Include="ViewModel\Button\Loan.cs" />
+    <Compile Include="ViewModel\Button\MonyeTransfer.cs" />
+    <Compile Include="ViewModel\Button\NewDeposit.cs" />
+    <Compile Include="ViewModel\IButtonListener.cs" />
     <Compile Include="View\FLoan.xaml.cs">
       <DependentUpon>FLoan.xaml</DependentUpon>
     </Compile>
