@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace AdditionalLibrary
 {
-    class Fill
+    class Fill : IButtonListener
     {
         // Создаем список клиентов.
         public static ObservableCollection<Clients> client;
@@ -132,6 +132,15 @@ namespace AdditionalLibrary
         {
             client.Clear();
             account.Clear();
+        }
+
+        /// <summary>
+        /// Реализация интерфейса IButtonListener.
+        /// </summary>
+        public void ButtonPressed()
+        {
+            RemoveDataFromCollection();
+            AutoFill();
         }
     }
 }
