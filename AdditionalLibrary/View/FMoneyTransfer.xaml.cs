@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Hw_13
+namespace AdditionalLibrary
 {
     /// <summary>
     /// Interaction logic for FMoneyTransfer.xaml

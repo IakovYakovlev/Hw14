@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 
-namespace Hw_13
+namespace AdditionalLibrary
 {
     public class ActionsMessage
     {

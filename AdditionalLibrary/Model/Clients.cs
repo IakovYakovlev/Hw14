@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Hw_13
+namespace AdditionalLibrary
 {
     public class Clients
     {
