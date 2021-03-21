@@ -8,7 +8,8 @@
         WindowStartupLocation="CenterScreen"
         Title="MainWindow" 
         Height="450" 
-        Width="1200">
+        Width="1200"
+        Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -43,10 +44,10 @@
         <TextBlock Text="Управление :" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"/>
         <Border Margin="0 22 0 0" BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">
             <StackPanel Margin="3" >
-                <Button Name="btnAutoFill" Content="Заполнить автоматически" Click="btnAutoFill_Click" />
-                <Button Name="btnOpen" Content="Открыть новый вклад" Click="btnOpen_Click" />
-                <Button Name="btnTransfer" Content="Перевод на другой счет" Click="btnTransfer_Click" />
-                <Button Name="btnLoan" Content="Выдать кредит" Click="btnLoan_Click" />
+                <Button Name="btnAutoFill" Content="Заполнить автоматически" Click="btn_Click" />
+                <Button Name="btnOpen" Content="Открыть новый вклад" Click="btn_Click" />
+                <Button Name="btnTransfer" Content="Перевод на другой счет" Click="btn_Click" />
+                <Button Name="btnLoan" Content="Выдать кредит" Click="btn_Click" />
             </StackPanel>
         </Border>
 
@@ -84,7 +85,7 @@
         <StackPanel Grid.Column="3" Grid.RowSpan="2">
             <TextBlock Text="Журнал действий :" />
 
-            <ListView Name="listActions" ItemsSource="{Binding}" Loaded="listActions_Loaded">
+            <ListView Name="listActions" ItemsSource="{Binding}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Дата" DisplayMemberBinding="{Binding Date}" />

@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace AdditionalLibrary
 {
-    class Fill : IButtonListener
+    public class Fill : IButtonListener
     {
         // Создаем список клиентов.
         public static ObservableCollection<Clients> client;

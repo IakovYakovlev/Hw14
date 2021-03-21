@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AdditionalLibrary;
 
 namespace Hw_13
 {
@@ -23,8 +24,8 @@ namespace Hw_13
         // Создаем клиента.
         Clients client;
 
-        // Создаем список активностей.
-        ActionsMessage actionMessage = new ActionsMessage();
+        // Создаем адаптер кнопок.
+        ButtonAdapter btn;
 
         public MainWindow()
         {
@@ -78,24 +79,6 @@ namespace Hw_13
             /// Ok! =   Вынести основную логику в отдельную(ые) библиотеку 
             #endregion
             InitializeComponent();
-
-            this.listActions.ItemsSource = ActionsMessage.actionList;
-        }
-
-        /// <summary>
-        /// Метод для автоматического заполнения.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnAutoFill_Click(object sender, RoutedEventArgs e)
-        {
-            this.listClients.ItemsSource = null;
-
-            Fill.RemoveDataFromCollection();
-
-            Fill.AutoFill();
-
-            this.listClients.ItemsSource = Fill.client;
         }
 
         /// <summary>
@@ -105,9 +88,7 @@ namespace Hw_13
         /// <param name="e"></param>
         private void listClients_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Обнуляем данные в списках.
-            this.listAccounts.ItemsSource = null;
-            this.listAccountsCredit.ItemsSource = null;
+            SetListValues();
 
             // Записываем выделенную запись.
             client = (Clients)listClients.SelectedItem;
@@ -125,155 +106,36 @@ namespace Hw_13
         }
 
         /// <summary>
-        /// Метод для открытия нового вклада.
+        /// Загрузка формы.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnOpen_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // Записываем выделенную запись.
-            client = (Clients)listClients.SelectedItem;
-            
-            // Проверяем, чтобы выделили запись.
-            if(client == null)
-            {
-                MessageBox.Show("Необходимо выбрать клиента!");
-                return;
-            }
-            
-            // Создаем форму.
-            FNewDeposit newDeposit = new FNewDeposit();
-
-            // Устанавлиеваем значения в переменных формы.
-            newDeposit.name = client.Name;
-
-            // Если нажали "Ок", тогда добавляем новый вклад.
-            if(newDeposit.ShowDialog() == true)
-            {
-                Fill.account.Add(new Accounts(client.Index, newDeposit.amount, newDeposit.type));
-                actionMessage.Message(client.Name, "Открыл новый вчет", newDeposit.amount);
-            }
-
-            // Обновляем список с вкладами.
-            this.listAccounts.ItemsSource = Fill.account.Where(x => x.СlientsIndex == client.Index
-                                                               && x.TypeOfDeposit != DepositType.Credit);
+            // Заполняем все списки.
+            this.listActions.ItemsSource = ActionsMessage.actionList;
+            this.listClients.ItemsSource = Fill.client;
+            this.listActions.ItemsSource = ActionsMessage.actionList;
         }
 
         /// <summary>
-        /// Метод для перевода вкладов.
+        /// Событие - нажатие на кнопку.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnTransfer_Click(object sender, RoutedEventArgs e)
+        private void btn_Click(object sender, RoutedEventArgs e)
         {
-            // Записываем выделенную запись.
-            client = (Clients)listClients.SelectedItem;
-
-            // Проверяем, чтобы выделили запись.
-            if (client == null)
-            {
-                MessageBox.Show("Необходимо выбрать, кто будет переводить деньги.");
-                return;
-            }
-
-            // Создаем новую форму.
-            FMoneyTransfer mt = new FMoneyTransfer();
-
-            // Передаем индекс клиента в форму.
-            mt.clientIndex = client.Index;
-
-            if (mt.ShowDialog() == true)
-            {
-                // Отнимает от счета.
-                foreach (var acc in Fill.account)
-                {
-                    if (acc.Index == mt.accountIndex)
-                    {
-                        acc.Amount = Math.Round(acc.Amount - mt.amount,2);
-                        
-                        actionMessage.Message(client.Name, "Отправил деньги", mt.amount);
-
-                        if (acc.Amount == 0) 
-                        {
-                            
-                            Fill.account.Remove(acc);
-                            break;
-                        }
-
-                        break;
-                    }
-                }
-
-                // Прибавляем к счету.
-                foreach(var acc in Fill.account)
-                {
-                    if(acc.СlientsIndex == mt.clientIndex && acc.TypeOfDeposit != DepositType.Credit)
-                    {
-                        acc.Amount = Math.Round(acc.Amount += mt.amount, 2);
-
-                        foreach (var client in Fill.client)
-                            if (acc.СlientsIndex == client.Index)
-                            {
-                                actionMessage.Message(client.Name, "Получил деньги", mt.amount);
-                                break;
-                            }
-
-                        break;
-                    }
-                }
-
-                // Заполняем список со счетами.
-                this.listAccounts.ItemsSource = Fill.account.Where(x => x.СlientsIndex == client.Index
-                                                                   && x.TypeOfDeposit != DepositType.Credit);
-            }
+            btn = new ButtonAdapter((sender as Button).Name, listClients);
+            SetListValues();
         }
 
         /// <summary>
-        /// Метод для выдачи кредита.
+        /// Метод для установки значения null в списках формы.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnLoan_Click(object sender, RoutedEventArgs e)
+        private void SetListValues()
         {
-            // Записываем выделенную запись.
-            client = (Clients)listClients.SelectedItem;
-
-            // Проверяем, чтобы выделили запись.
-            if (client == null)
-            {
-                MessageBox.Show("Необходимо выбрать, кому выдается кредит.");
-                return;
-            }
-
-            // Создаем форму.
-            FLoan loan = new FLoan();
-
-            // Устанавлиеваем значения в переменных формы.
-            loan.name = client.Name;
-            loan.creditHistory = client.CreditType;
-
-            // Если нажали "Ок", тогда выдаем кредит.
-            if (loan.ShowDialog() == true)
-            {
-                Fill.account.Add(new Accounts(client.Index, loan.credit, DepositType.Credit));
-                actionMessage.Message(client.Name, "Взял кредит", loan.credit);
-            }
-
-            // Заполняем список с кредитами.
-            this.listAccountsCredit.ItemsSource = Fill.account.Where(x => x.СlientsIndex == client.Index
-                                                                && x.TypeOfDeposit == DepositType.Credit);
-        }
-
-        /// <summary>
-        /// Метод для подписки при загрузке формы.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listActions_Loaded(object sender, RoutedEventArgs e)
-        {
-            // Подписываем на обновления.
-            ActionsMessage actionMessageList = new ActionsMessage();
-            actionMessage.Post += actionMessageList.ClientsActions;
+            this.listAccounts.ItemsSource = null;
+            this.listAccountsCredit.ItemsSource = null;
         }
     }
 }

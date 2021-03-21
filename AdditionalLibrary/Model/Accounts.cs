@@ -2,7 +2,7 @@
 
 namespace AdditionalLibrary
 {
-    class Accounts
+    public class Accounts
     {
         // Переменные для установки значений.
         private Guid index;

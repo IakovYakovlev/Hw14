@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace AdditionalLibrary
 {
-    class ButtonAdapter
+    public class ButtonAdapter
     {
         /// <summary>
         /// Конструктор.

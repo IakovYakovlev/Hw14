@@ -62,7 +62,7 @@ namespace AdditionalLibrary
                 // Прибавляем к счету.
                 foreach (var acc in Fill.account)
                 {
-                    if (acc.СlientsIndex == mt.clientIndex && acc.TypeOfDeposit != AdditionalForms.DepositType.Credit)
+                    if (acc.СlientsIndex == mt.clientIndex && acc.TypeOfDeposit != DepositType.Credit)
                     {
                         acc.Amount = acc.Amount.RoundAddition(mt.amount);
 
