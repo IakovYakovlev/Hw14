@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AdditionalLibrary.ViewModel
+namespace AdditionalLibrary
 {
     public class SomethingException : Exception
     {

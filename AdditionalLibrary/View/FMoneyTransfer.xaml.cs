@@ -71,31 +71,31 @@ namespace AdditionalLibrary
             {
                 // Проверям, поле с суммой было не пусто.
                 if (string.IsNullOrEmpty(txtAmount.Text))
-                {
-                    MessageBox.Show("Необходимо вписать сумму для перевода.");
-                    return;
-                }
+                    throw new SomethingException("Ошибка : Необходимо вписать сумму для перевода.");
+
+                // Проверяем, чтобы выделили счет.
+                if (account == null)
+                    throw new SomethingException("Ошибка : Необходимо выделить \"С какого счета перевод\"");
 
                 // Проверяем, чтобы выделили клиента.
                 if (client == null)
-                {
-                    MessageBox.Show("Необходимо выделить \"Кому переводить\"");
-                    return;
-                }
+                    throw new SomethingException("Ошибка : Необходимо выделить \"Кому переводить\"");
 
                 // Записываем сумму из поля.
                 amount = Convert.ToDouble(txtAmount.Text);
 
                 // Проверяем, чтобы сумма была не больше чем есть на счету и не меньше либо равно 0.
                 if ( amount <= 0 || account.Amount < amount)
-                {
-                    MessageBox.Show("Сумма слишком большая/маленькая.");
-                    return;
-                }
+                    throw new SomethingException("Ошибка : Сумма слишком большая/маленькая.");
             }
-            catch (Exception ex)
+            catch (SomethingException ex)
             {
-                MessageBox.Show(ex.Message + " Необходимо вписывать толко цифры.");
+                MessageBox.Show(ex.Message);
+                return;
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show("Ошибка : Необходимо ввести только цифры.");
                 return;
             }
 
