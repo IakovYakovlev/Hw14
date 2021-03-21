@@ -74,7 +74,9 @@
     <Compile Include="ViewModel\Button\Loan.cs" />
     <Compile Include="ViewModel\Button\MoneyTransfer.cs" />
     <Compile Include="ViewModel\Button\NewDeposit.cs" />
+    <Compile Include="ViewModel\Extensions.cs" />
     <Compile Include="ViewModel\IButtonListener.cs" />
+    <Compile Include="ViewModel\SomethingException.cs" />
     <Compile Include="View\FLoan.xaml.cs">
       <DependentUpon>FLoan.xaml</DependentUpon>
     </Compile>
