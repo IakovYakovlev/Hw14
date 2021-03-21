@@ -71,24 +71,24 @@ namespace AdditionalLibrary
             {
                 // Проверям, поле с суммой было не пусто.
                 if (string.IsNullOrEmpty(txtAmount.Text))
-                    throw new SomethingException("Ошибка : Необходимо вписать сумму для перевода.");
+                    throw new CustomException("Ошибка : Необходимо вписать сумму для перевода.");
 
                 // Проверяем, чтобы выделили счет.
                 if (account == null)
-                    throw new SomethingException("Ошибка : Необходимо выделить \"С какого счета перевод\"");
+                    throw new CustomException("Ошибка : Необходимо выделить \"С какого счета перевод\"");
 
                 // Проверяем, чтобы выделили клиента.
                 if (client == null)
-                    throw new SomethingException("Ошибка : Необходимо выделить \"Кому переводить\"");
+                    throw new CustomException("Ошибка : Необходимо выделить \"Кому переводить\"");
 
                 // Записываем сумму из поля.
                 amount = Convert.ToDouble(txtAmount.Text);
 
                 // Проверяем, чтобы сумма была не больше чем есть на счету и не меньше либо равно 0.
                 if ( amount <= 0 || account.Amount < amount)
-                    throw new SomethingException("Ошибка : Сумма слишком большая/маленькая.");
+                    throw new CustomException("Ошибка : Сумма слишком большая/маленькая.");
             }
-            catch (SomethingException ex)
+            catch (CustomException ex)
             {
                 MessageBox.Show(ex.Message);
                 return;

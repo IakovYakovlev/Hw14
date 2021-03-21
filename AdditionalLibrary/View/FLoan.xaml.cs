@@ -72,16 +72,16 @@ namespace AdditionalLibrary
             {
                 // Проверяем, чтобы данные ввели.
                 if (string.IsNullOrEmpty(this.txtCredit.Text))
-                    throw new SomethingException("Ошибка : Просьба вписать сумму кредита.");
+                    throw new CustomException("Ошибка : Просьба вписать сумму кредита.");
 
                 // Записываем сумму из поля.
                 credit = Convert.ToDouble(this.txtCredit.Text);
 
                 // Проверяем, чтобы сумма была не меньше либо равно 0.
                 if (credit <= 0)
-                    throw new SomethingException("Ошибка : Сумма слишком маленькая.");
+                    throw new CustomException("Ошибка : Сумма слишком маленькая.");
             }
-            catch (SomethingException ex)
+            catch (CustomException ex)
             {
                 MessageBox.Show(ex.Message);
                 return;
