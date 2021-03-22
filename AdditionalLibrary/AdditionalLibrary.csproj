@@ -74,9 +74,10 @@
     <Compile Include="ViewModel\Button\Loan.cs" />
     <Compile Include="ViewModel\Button\MoneyTransfer.cs" />
     <Compile Include="ViewModel\Button\NewDeposit.cs" />
+    <Compile Include="ViewModel\Exception\AmountNotMoreException.cs" />
     <Compile Include="ViewModel\Extensions.cs" />
     <Compile Include="ViewModel\IButtonListener.cs" />
-    <Compile Include="ViewModel\CustomException.cs" />
+    <Compile Include="ViewModel\Exception\LessThanZeroException.cs" />
     <Compile Include="View\FLoan.xaml.cs">
       <DependentUpon>FLoan.xaml</DependentUpon>
     </Compile>

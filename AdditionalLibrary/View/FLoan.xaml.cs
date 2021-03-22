@@ -67,21 +67,24 @@ namespace AdditionalLibrary
         /// <param name="e"></param>
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
+            // Проверяем, чтобы данные ввели.
+            if (string.IsNullOrEmpty(this.txtCredit.Text))
+            {
+                MessageBox.Show("Просьба вписать сумму кредита.");
+                return;
+            }
+
             // Проверяем, чтобы ввели правильные данные.
             try
             {
-                // Проверяем, чтобы данные ввели.
-                if (string.IsNullOrEmpty(this.txtCredit.Text))
-                    throw new CustomException("Ошибка : Просьба вписать сумму кредита.");
-
                 // Записываем сумму из поля.
                 credit = Convert.ToDouble(this.txtCredit.Text);
 
                 // Проверяем, чтобы сумма была не меньше либо равно 0.
                 if (credit <= 0)
-                    throw new CustomException("Ошибка : Сумма слишком маленькая.");
+                    throw new LessThanZeroException("Ошибка : Сумма слишком маленькая.");
             }
-            catch (CustomException ex)
+            catch (LessThanZeroException ex)
             {
                 MessageBox.Show(ex.Message);
                 return;

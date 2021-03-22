@@ -26,6 +26,9 @@ namespace AdditionalLibrary
 
         // Создаем аккаунт.
         Accounts account;
+        
+        // Создаем клиента.
+        Clients client;
 
         /// <summary>
         /// Конструктор.
@@ -64,31 +67,32 @@ namespace AdditionalLibrary
         {
             // Записываем выделенную запись.
             account = (Accounts)listAccounts.SelectedItem;
-            Clients client = (Clients)listClients.SelectedItem;
+            client = (Clients)listClients.SelectedItem;
+
+            // Проверяем, чтобы в поле вписали данные и выделили записи.
+            if (Check())
+                return;
 
             // Проверяем, чтобы ввели правильные данные.
             try
             {
-                // Проверям, поле с суммой было не пусто.
-                if (string.IsNullOrEmpty(txtAmount.Text))
-                    throw new CustomException("Ошибка : Необходимо вписать сумму для перевода.");
-
-                // Проверяем, чтобы выделили счет.
-                if (account == null)
-                    throw new CustomException("Ошибка : Необходимо выделить \"С какого счета перевод\"");
-
-                // Проверяем, чтобы выделили клиента.
-                if (client == null)
-                    throw new CustomException("Ошибка : Необходимо выделить \"Кому переводить\"");
-
                 // Записываем сумму из поля.
                 amount = Convert.ToDouble(txtAmount.Text);
 
-                // Проверяем, чтобы сумма была не больше чем есть на счету и не меньше либо равно 0.
-                if ( amount <= 0 || account.Amount < amount)
-                    throw new CustomException("Ошибка : Сумма слишком большая/маленькая.");
+                // Проверяем, чтобы сумма была больше 0.
+                if ( amount <= 0)
+                    throw new LessThanZeroException("Ошибка : Сумма слишком маленькая.");
+
+                // Проверяем, чтобы сумма была не больше чем есть на счету.
+                if (account.Amount < amount)
+                    throw new AmountNotMoreException("Ошибка : Сумма слишком большая.");
             }
-            catch (CustomException ex)
+            catch (LessThanZeroException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+            catch (AmountNotMoreException ex)
             {
                 MessageBox.Show(ex.Message);
                 return;
@@ -117,6 +121,36 @@ namespace AdditionalLibrary
 
             // Добавляем сумму в поле.
             this.txtAmount.Text = account.Amount.ToString();
+        }
+
+        /// <summary>
+        /// Метод проверят IsNullOrEmpty и выделение записей в списках.
+        /// </summary>
+        /// <returns>true or false</returns>
+        private bool Check()
+        {
+            // Проверям, чтобы поле с суммой было не пусто.
+            if (string.IsNullOrEmpty(txtAmount.Text))
+            {
+                MessageBox.Show("Необходимо вписать сумму для перевода.");
+                return true;
+            }
+
+            // Проверяем, чтобы выделили счет.
+            if (account == null)
+            {
+                MessageBox.Show("Необходимо выделить \"С какого счета перевод\"");
+                return true;
+            }
+
+            // Проверяем, чтобы выделили клиента.
+            if (client == null)
+            {
+                MessageBox.Show("Необходимо выделить \"Кому переводить\"");
+                return true;
+            }
+
+            return false;
         }
     }
 }
