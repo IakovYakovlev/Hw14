@@ -74,7 +74,7 @@ namespace AdditionalLibrary
 
                 // Проверяем, чтобы сумма была больше 0.
                 if(amount <= 0)
-                    throw new LessThanZeroException("Ошибка : Сумма слишком маленькая.");
+                    throw new ValueLessThanZeroException("Ошибка : Сумма слишком маленькая.");
 
                 // Назначаем тип депозита.
                 if (cmbType.Text == "С капитализацией")
@@ -83,7 +83,7 @@ namespace AdditionalLibrary
                     type = DepositType.WithoutСapitalization;
 
             }
-            catch (LessThanZeroException ex)
+            catch (ValueLessThanZeroException ex)
             {
                 MessageBox.Show(ex.Message);
                 return;

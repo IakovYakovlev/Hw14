@@ -77,7 +77,7 @@
     <Compile Include="ViewModel\Exception\AmountNotMoreException.cs" />
     <Compile Include="ViewModel\Extensions.cs" />
     <Compile Include="ViewModel\IButtonListener.cs" />
-    <Compile Include="ViewModel\Exception\LessThanZeroException.cs" />
+    <Compile Include="ViewModel\Exception\ValueLessThanZeroException.cs" />
     <Compile Include="View\FLoan.xaml.cs">
       <DependentUpon>FLoan.xaml</DependentUpon>
     </Compile>

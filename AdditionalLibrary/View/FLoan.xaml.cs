@@ -82,9 +82,9 @@ namespace AdditionalLibrary
 
                 // Проверяем, чтобы сумма была не меньше либо равно 0.
                 if (credit <= 0)
-                    throw new LessThanZeroException("Ошибка : Сумма слишком маленькая.");
+                    throw new ValueLessThanZeroException("Ошибка : Сумма слишком маленькая.");
             }
-            catch (LessThanZeroException ex)
+            catch (ValueLessThanZeroException ex)
             {
                 MessageBox.Show(ex.Message);
                 return;

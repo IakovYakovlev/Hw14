@@ -81,13 +81,13 @@ namespace AdditionalLibrary
 
                 // Проверяем, чтобы сумма была больше 0.
                 if ( amount <= 0)
-                    throw new LessThanZeroException("Ошибка : Сумма слишком маленькая.");
+                    throw new ValueLessThanZeroException("Ошибка : Сумма слишком маленькая.");
 
                 // Проверяем, чтобы сумма была не больше чем есть на счету.
                 if (account.Amount < amount)
                     throw new AmountNotMoreException("Ошибка : Сумма слишком большая.");
             }
-            catch (LessThanZeroException ex)
+            catch (ValueLessThanZeroException ex)
             {
                 MessageBox.Show(ex.Message);
                 return;
